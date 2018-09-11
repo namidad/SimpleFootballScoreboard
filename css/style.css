@@ -1,0 +1,99 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navigation {
+    background: black;
+    list-style: none;
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.navigation li {
+    display: inline;
+}
+
+.navigation li a{
+    color: white;
+    font-size: 30px;
+    padding: 30px;
+    text-decoration: none;
+}
+
+
+
+.activeLink {
+    color: red;
+}
+
+.navigation li a:hover {
+    color: blue;
+}
+
+
+.league {
+    width: 100%;
+    height: calc(100vh - 76px);
+    background: red;
+}
+
+
+.soccerTable, .wait, .playerStats {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.wait, .playerStats{
+    margin-top: 50px;
+}
+
+.circle {
+    margin-top: 100px;
+    border-radius: 50%;
+    background: red;
+    animation-name: pulse;
+    animation-duration: 0.4s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes pulse {
+
+    0% {
+        opacity: 1;
+        width: 100px;
+        height: 100px;
+    }
+
+    100% {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+}
+
+
+table {
+    margin-top: 60px;
+    border-collapse: collapse;
+    border: 2px solid black;
+}
+
+th {
+    border-bottom: 1px solid gray;
+    border-right: 1px solid crimson;
+    text-align: center;
+}
+
+tr:nth-child(2n+1){
+    background: lightgray;
+}
+
+th {
+    padding-right: 10px;
+    padding-left: 10px;
+}
