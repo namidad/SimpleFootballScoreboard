@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
         componentDidMount(){
-            fetch(`http://api.football-data.org/v2/competitions/2021/standings`, {
+            fetch(`https://api.football-data.org/v2/competitions/2021/standings`, {
                 method: 'GET',
                 headers: { 'X-Auth-Token': 'f0ffb8f0ea184c14ae68e2cdf564428b' }
             })
@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 leagueID=2002;
             }
-            fetch(`http://api.football-data.org/v2/competitions/${leagueID}/standings`, {
+            fetch(`https://api.football-data.org/v2/competitions/${leagueID}/standings`, {
                 method: 'GET',
                 headers: { 'X-Auth-Token': 'f0ffb8f0ea184c14ae68e2cdf564428b' }
             })
