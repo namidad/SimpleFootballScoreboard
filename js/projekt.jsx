@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         componentDidMount(){
-            fetch(`http://api.football-data.org/v2/competitions/${this.state.leagueID}/standings`, {
+            fetch(`https://api.football-data.org/v2/competitions/${this.state.leagueID}/standings`, {
                 method: 'GET',
                 headers: { 'X-Auth-Token': 'f0ffb8f0ea184c14ae68e2cdf564428b' }
             })
