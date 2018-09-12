@@ -34,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
         }
         render(){
-
             const arrayLi = this.state.leagueArray.map(el=>{
                 return (
                     <tr key={el.team.name}>
@@ -108,6 +107,24 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
+        componentWillReceiveProps(newProps){
+            this.setState({
+                id: newProps.id,
+            });
+
+            fetch(`https://api.football-data.org/v2/teams/${newProps.id}`, {
+                method: 'GET',
+                headers: { 'X-Auth-Token': 'f0ffb8f0ea184c14ae68e2cdf564428b' }
+            })
+                .then(r => r.json())
+                .then(data => {
+                    this.setState({
+                        teamInfo: data,
+                    });
+                });
+
+        }
+
         componentDidMount(){
             fetch(`https://api.football-data.org/v2/teams/${this.state.id}`, {
                 method: 'GET',
@@ -115,7 +132,6 @@ document.addEventListener('DOMContentLoaded', () => {
             })
                 .then(r => r.json())
                 .then(data => {
-                    console.log(data);
                     this.setState({
                         teamInfo: data,
                         loaded: true,
