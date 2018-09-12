@@ -104,11 +104,12 @@ document.addEventListener('DOMContentLoaded', () => {
             this.state = {
                 teamInfo: null,
                 loaded: false,
+                id: this.props.id
             }
         }
 
         componentDidMount(){
-            fetch(`https://api.football-data.org/v2/teams/${this.props.id}`, {
+            fetch(`https://api.football-data.org/v2/teams/${this.state.id}`, {
                 method: 'GET',
                 headers: { 'X-Auth-Token': 'f0ffb8f0ea184c14ae68e2cdf564428b' }
             })
@@ -118,13 +119,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     this.setState({
                         teamInfo: data,
                         loaded: true,
-                    })
+                    });
                 });
         }
 
         render(){
-
-
             if(this.state.loaded){
                 const style = {
                     backgroundImage: `url(${this.state.teamInfo.crestUrl})`,
@@ -164,6 +163,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     return null;
                 });
+                const padding = {
+                    paddingBottom: "10px",
+                    paddingTop: "10px",
+                }
+
+                const paddingRight = {
+                    paddingRight: "20px",
+                }
 
 
                 return(
@@ -182,28 +189,41 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                         <div>
                             <h1>2018/2019 Squad</h1>
-                            <h2>Goalkeepers:</h2>
-                            <ul className={"squadList"}>
-                                {goalkeeper}
-                            </ul>
-                            <br/>
-                            <h2>Defenders:</h2>
-                            <ul className={"squadList"}>
-                                {defender}
-                            </ul>
-                            <br/>
-                            <h2>Midfilders:</h2>
-                            <ul className={"squadList"}>
-                                {midfilder}
-                            </ul>
-                            <br/>
-                            <h2>Attackers:</h2>
-                            <ul className={"squadList"}>
-                                {attacker}
-                            </ul>
+                            <div>
+                                <div className={"squad"} style={padding}>
+                                    <div style={paddingRight}>
+                                        <h2>Goalkeepers</h2>
+                                        <ul className={"squadList"}>
+                                            {goalkeeper}
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h2>Defenders</h2>
+                                        <ul className={"squadList"}>
+                                            {defender}
+                                        </ul>
+                                    </div>
+
+                                </div>
+                                <div className={"squad"} style={padding}>
+                                    <div style={paddingRight}>
+                                        <h2>Midfilders</h2>
+                                        <ul className={"squadList"}>
+                                            {midfilder}
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h2>Attackers</h2>
+                                        <ul className={"squadList"}>
+                                            {attacker}
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+
 
                         </div>
-
                     </div>
                 );
             }
