@@ -96,15 +96,79 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    class TeamInfo extends React.Component {
+
+        constructor(props){
+            super(props);
+
+            this.state = {
+                teamInfo: null,
+                loaded: false,
+            }
+        }
+
+        componentDidMount(){
+            fetch(`https://api.football-data.org/v2/teams/${this.props.id}`, {
+                method: 'GET',
+                headers: { 'X-Auth-Token': 'f0ffb8f0ea184c14ae68e2cdf564428b' }
+            })
+                .then(r => r.json())
+                .then(data => {
+                    console.log(data);
+                    this.setState({
+                        teamInfo: data,
+                        loaded: true,
+                    })
+                });
+        }
+
+        render(){
+
+
+            if(this.state.loaded){
+                const style = {
+                    backgroundImage: `url(${this.state.teamInfo.crestUrl})`,
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "contain",
+                    width: "300px",
+                    height: "300px",
+                }
+
+                return(
+                    <div className={"teamInfo"}>
+                        <div>
+                            <div style={style}></div>
+                            <div>
+                                <h2>Team name: {this.state.teamInfo.name}</h2>
+                            </div>
+                        </div>
+                        <ul>
+                            <li>a</li>
+                            <li>a</li>
+                            <li>a</li>
+                            <li>a</li>
+                        </ul>
+                    </div>
+                );
+            }
+
+            return <div className={"wait"}>
+                <h1>Please wait...</h1>
+                <div className={"circle"}></div>
+            </div>
+        }
+    }
+
+
     class Home extends React.Component {
         constructor(props){
             super(props);
             this.state = {
                 leagueArray: [],
                 leagueName: "Premier League",
-                teamID: null,
-                teamName: "",
-                test: [],
+                teamID: 1044,
+                teamName: "AFC Bournemouth",
+                teamArray: [],
             }
         }
 
@@ -116,8 +180,15 @@ document.addEventListener('DOMContentLoaded', () => {
             })
                 .then(r => r.json())
                 .then(data => {
+                    const teamArray = data.standings[0].table.map(el=>{
+                        return {
+                            name: el.team.name,
+                            key: el.team.id,
+                        }
+                    });
                     this.setState({
                         leagueArray: data.standings[0].table,
+                        teamArray: teamArray,
                     });
                 });
         }
@@ -142,17 +213,35 @@ document.addEventListener('DOMContentLoaded', () => {
             })
                 .then(r => r.json())
                 .then(data => {
+                    const teamArray = data.standings[0].table.map(el=>{
+                        return {
+                            name: el.team.name,
+                            key: el.team.id,
+                        }
+                    });
                     this.setState({
                         leagueArray: data.standings[0].table,
+                        teamArray: teamArray,
                     });
                 });
         }
+
 
         handleTeamChange = e => {
             this.setState({
                 teamName: e.target.value,
             });
+
+            this.state.teamArray.forEach(el => {
+                if(el.name === e.target.value){
+                    this.setState({
+                       teamID: el.key,
+                    });
+                }
+            });
         }
+
+
 
         render(){
             this.state.leagueArray.sort((a,b)=>{
@@ -165,6 +254,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     key={el.team.id}
                     value={el.team.name}>{el.team.name}</option>;
             });
+
             return (
                 <div className={"playerStats"}>
                     <h1>Sprawdź statystyki wybranego klubu!</h1>
@@ -183,6 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     >
                         {teamOptions}
                     </select>
+                    <TeamInfo id={this.state.teamID}/>
                 </div>
             );
         }
