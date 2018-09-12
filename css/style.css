@@ -100,8 +100,20 @@ th {
 
 
 .teamInfo {
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
-    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.flex {
+    display: flex;
+    flex-direction: row;
     justify-content: flex-start;
+    padding-bottom: 20px;
+}
+
+.squadList {
+    list-style: none;
 }

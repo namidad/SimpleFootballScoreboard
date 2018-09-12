@@ -132,22 +132,78 @@ document.addEventListener('DOMContentLoaded', () => {
                     backgroundSize: "contain",
                     width: "300px",
                     height: "300px",
+                    display: "inline-block"
                 }
+
+                const secondStyle = {
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                }
+                const defender = this.state.teamInfo.squad.map(el => {
+                    if(el.position==="Defender"){
+                        return <li key={el.id}>{el.name}</li>
+                    }
+                    return null;
+                });
+                const goalkeeper = this.state.teamInfo.squad.map(el => {
+                    if(el.position==="Goalkeeper"){
+                        return <li key={el.id}>{el.name}</li>
+                    }
+                    return null;
+                });
+                const midfilder = this.state.teamInfo.squad.map(el => {
+                    if(el.position==="Midfielder"){
+                        return <li key={el.id}>{el.name}</li>
+                    }
+                    return null;
+                });
+                const attacker = this.state.teamInfo.squad.map(el => {
+                    if(el.position==="Attacker"){
+                        return <li key={el.id}>{el.name}</li>
+                    }
+                    return null;
+                });
+
 
                 return(
                     <div className={"teamInfo"}>
-                        <div>
+                        <div className={"flex"}>
                             <div style={style}></div>
-                            <div>
-                                <h2>Team name: {this.state.teamInfo.name}</h2>
+                            <div style={secondStyle}>
+                                <h3>Team name: {this.state.teamInfo.name}</h3>
+                                <h3>Team colors: {this.state.teamInfo.clubColors}</h3>
+                                <h3>Founded: {this.state.teamInfo.founded}</h3>
+                                <h5>Address: {this.state.teamInfo.address}</h5>
+                                <h5>Phone: {this.state.teamInfo.phone}</h5>
+                                <h5>email: {this.state.teamInfo.email}</h5>
+                                <h5><a href={this.state.teamInfo.website}>{this.state.teamInfo.website}</a></h5>
                             </div>
                         </div>
-                        <ul>
-                            <li>a</li>
-                            <li>a</li>
-                            <li>a</li>
-                            <li>a</li>
-                        </ul>
+                        <div>
+                            <h1>2018/2019 Squad</h1>
+                            <h2>Goalkeepers:</h2>
+                            <ul className={"squadList"}>
+                                {goalkeeper}
+                            </ul>
+                            <br/>
+                            <h2>Defenders:</h2>
+                            <ul className={"squadList"}>
+                                {defender}
+                            </ul>
+                            <br/>
+                            <h2>Midfilders:</h2>
+                            <ul className={"squadList"}>
+                                {midfilder}
+                            </ul>
+                            <br/>
+                            <h2>Attackers:</h2>
+                            <ul className={"squadList"}>
+                                {attacker}
+                            </ul>
+
+                        </div>
+
                     </div>
                 );
             }
@@ -257,8 +313,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             return (
                 <div className={"playerStats"}>
-                    <h1>Sprawdź statystyki wybranego klubu!</h1>
-                    <h3>Wybierz ligę:</h3>
+                    <h1>Check info about your team!</h1>
+                    <h3>Choose league:</h3>
                     <select
                         value={this.state.leagueName}
                         onChange={this.handleLeagueChange}>
@@ -266,7 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <option value="Serie A">Serie A</option>
                         <option value="Bundesliga">Bundesliga</option>
                     </select>
-                    <h3>Wybierz klub:</h3>
+                    <h3>Choose Team:</h3>
                     <select
                         value={this.state.teamName}
                         onChange={this.handleTeamChange}
